@@ -13,4 +13,10 @@ export default defineConfig({
         title: 'SCPSL Card Maker',
         favicon: './favicon.ico',
     },
+    source: {
+        define: {
+            BUILD_NUM: JSON.stringify(process.env.BUILD_NUM),
+            BUILD_LINK: JSON.stringify(process.env.BUILD_LINK),
+        },
+    },
 });
