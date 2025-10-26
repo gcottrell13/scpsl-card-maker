@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    /*color: #fff;*/
+    font-family: sans-serif;
+    /*background-image: linear-gradient(to bottom, #020917, #101725);*/
+}
+
+.content {
+    margin: 0 auto;
+    display: flex;
+    min-height: 100vh;
+    width: 500px;
+    line-height: 1.1;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.content h1 {
+    font-size: 3.6rem;
+    font-weight: 700;
+}
+
+.content p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+.perm-row {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+    align-items: center;
+}
+
+.perm-row .box {
+    width: 3em;
+    height: 3em;
+    border: 3px solid;
+    border-radius: 10px;
+}
+
+.icon-svg {
+}
+
+form div label {
+    margin-left: 5px;
+}
+
+.card {
+    width: calc(6 * 85.6px);
+    height: calc(6 * 53.98px);
+    overflow: clip;
+    border: 1px solid black;
+    border-radius: 10px;
+    position: relative;
+}
+
+.site-access-card-text {
+    width: 100%;
+    position: absolute;
+    top: 8%;
+    left: 0;
+}
+
+.wavy-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: repeat;
+}
