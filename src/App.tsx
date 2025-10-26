@@ -37,7 +37,7 @@ const App = () => {
                     gap: '10px',
                     padding: '10px',
                     alignItems: 'center',
-                    bottom: '2%',
+                    bottom: '1%',
                     position: 'absolute',
                 }}>
                     <PermissionRow icon={'util'} level={util_level}/>
@@ -154,6 +154,7 @@ function CardSiteAccessBG(
 
     const bg = ` \
         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' height='${font_size * 2}px' width='${font_size * 10}px'> \
+            <style>text {font-weight: bold }</style>\
             <text x='0' y='${font_size * .8}' font-size='${font_size}' font-family='sans-serif'>SITE ACCESS CARD</text> \
             <text x='${font_size * 5}px' y='${font_size * 1.8}' font-size='${font_size}' font-family='sans-serif'>SITE ACCESS CARD</text> \
             <text x='-${font_size * 5}px' y='${font_size * 1.8}' font-size='${font_size}' font-family='sans-serif'>SITE ACCESS CARD</text> \
@@ -218,10 +219,26 @@ function CardWavyBg() {
   </g> \
 </svg>")`;
     return (
-        <div className="wavy-container" style={{
-            background: 'var(--wavy-color)',
-            maskImage: backgroundImage,
-        }}/>
+        <>
+            <svg xmlns="http://www.w3.org/2000/svg" width="420" height="400" viewBox="1 -6 8 4" fill="none" style={{
+                position: 'absolute',
+            }}>
+                <path d="M0 0c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.1 0.3c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.2 0.6c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.3 0.9c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.4 1.2c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.5 1.5c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.6 1.8c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.7 2.1c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+                <path d="M0.8 2.4c4-1 5-4 6-7" stroke="var(--detail-color)" strokeWidth={0.1}/>
+            </svg>
+            <div className="wavy-container" style={{
+                background: 'var(--wavy-color)',
+                maskImage: backgroundImage,
+                position: 'absolute',
+            }}/>
+        </>
     );
 }
 
@@ -230,8 +247,25 @@ function CardHolder({name}: {name: string}) {
         <div style={{
             transform: 'rotate(-90deg)',
             color: 'var(--text-color)',
+            position: 'absolute',
+            left: '38%',
+            top: '60%',
+            width: '200px',
+            borderTop: '1px solid color-mix(in oklab, var(--text-color) 30%, white)',
+            textAlign: 'start',
         }}>
-            {name}
+            <span style={{color: 'color-mix(in oklab, var(--text-color) 30%, white)', fontSize: '0.8rem'}}>CARD HOLDER:</span>
+            <br/>
+            <span style={{marginLeft: '5px', fontSize: '1.5rem'}}>{name}</span>
+            <p style={{position: 'absolute', fontSize: '5px', top: '190px'}}>
+                There are two devices that function similar to Keycards found in game. Those are the Chaos Insurgency Device and Surface Access Pass.
+
+                The Chaos Insurgency Device has the same exact permissions as a Captain Keycard but has the added function of being able to play Snake by inspecting the device.
+
+                The Surface Access Pass is a unique item that can only be used to open Gate-A and Gate-B but not close them. The item is discarded once used to open a gate.
+
+                Unlike Keycards, throwing either devices at a Keycard Reader will not activate it.
+            </p>
         </div>
     );
 }
