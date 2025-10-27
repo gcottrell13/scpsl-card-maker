@@ -6,6 +6,11 @@ import {useEffect, useRef, useState} from "react";
 const PERMISSION_VALUES = [0, 1, 2, 3] as const;
 type LEVELS = typeof PERMISSION_VALUES[number];
 
+const default_bottom_text = `There are two devices that function similar to Keycards found in game. Those are the Chaos Insurgency Device and Surface Access Pass.
+                The Chaos Insurgency Device has the same exact permissions as a Captain Keycard but has the added function of being able to play Snake by inspecting the device.
+                The Surface Access Pass is a unique item that can only be used to open Gate-A and Gate-B but not close them. The item is discarded once used to open a gate.
+                Unlike Keycards, throwing either devices at a Keycard Reader will not activate it.`;
+
 
 const App = () => {
     const [detail_color, set_detail_color] = useState("#c1b5ca");
@@ -19,6 +24,7 @@ const App = () => {
 
     const [card_title, set_card_title] = useState("JANITOR");
     const [card_holder, set_card_holder] = useState("Mr. Janitor");
+    const [bottom_text, set_bottom_text] = useState(default_bottom_text);
 
     return (
         <div className="content" style={{
@@ -41,10 +47,10 @@ const App = () => {
                     position: 'absolute',
                 }}>
                     <PermissionRow icon={'util'} level={util_level}/>
-                    <PermissionRow icon={'scp'} level={scp_level}/>
                     <PermissionRow icon={'weapon'} level={weapon_level}/>
+                    <PermissionRow icon={'scp'} level={scp_level}/>
                 </div>
-                <CardHolder name={card_holder} />
+                <CardHolder name={card_holder} bottom_text={bottom_text}/>
             </div>
             <hr/>
             <form style={{display: 'flex', flexDirection: 'column', gap: '5px', alignItems: 'start'}}>
@@ -59,6 +65,8 @@ const App = () => {
                 <SelectLevel value={util_level} onChange={set_util_level} icon={'util'}/>
                 <SelectLevel value={scp_level} onChange={set_scp_level} icon={'scp'}/>
                 <SelectLevel value={weapon_level} onChange={set_weapon_level} icon={'weapon'}/>
+
+                <InputText value={bottom_text} onChange={set_bottom_text} name={'bottom text'} multiline/>
             </form>
         </div>
     );
@@ -86,7 +94,7 @@ export function PermissionRow({icon, level}: PermissionRowProps) {
                         viewBox="0 0 200 200"
                         width="fill"
                         height="fill"
-                        style={{padding: '3px'}}
+                        style={{padding: '3px', width: '2.7em', height: '2.7em'}}
                     >
                       <circle cx="100" cy="100" r="90" fill={'var(--text-color)'}/>
                     </svg>
@@ -131,10 +139,14 @@ function SelectColor({value, name, onChange}: { value: string, name: string, onC
     );
 }
 
-function InputText({value, name, onChange}: { value: string, name: string, onChange: (s: string) => void }) {
+function InputText({value, name, onChange, multiline = false}: { value: string, name: string, onChange: (s: string) => void, multiline?: boolean }) {
     return (
         <div>
-            <input id={`${name}-text`} type={'text'} onChange={(i) => onChange(i.target.value)} value={value}/>
+            {
+                multiline ?
+                    (<textarea id={`${name}-text`} onChange={(i) => onChange(i.target.value)} value={value}/>) :
+                    (<input id={`${name}-text`} type={'text'} onChange={(i) => onChange(i.target.value)} value={value}/>)
+            }
             <label htmlFor={`#${name}-text`}>{name}</label>
         </div>
     );
@@ -242,29 +254,23 @@ function CardWavyBg() {
     );
 }
 
-function CardHolder({name}: {name: string}) {
+function CardHolder({name, bottom_text}: {name: string, bottom_text: string}) {
     return (
         <div style={{
             transform: 'rotate(-90deg)',
             color: 'var(--text-color)',
             position: 'absolute',
-            left: '38%',
-            top: '60%',
+            left: '53%',
+            top: '35%',
             width: '200px',
             borderTop: '1px solid color-mix(in oklab, var(--text-color) 30%, white)',
             textAlign: 'start',
+            height: '200px',
         }}>
             <span style={{color: 'color-mix(in oklab, var(--text-color) 30%, white)', fontSize: '0.8rem'}}>CARD HOLDER:</span>
             <br/>
             <span style={{marginLeft: '5px', fontSize: '1.5rem'}}>{name}</span>
-            <p style={{position: 'absolute', fontSize: '5px', top: '190px'}}>
-                There are two devices that function similar to Keycards found in game. Those are the Chaos Insurgency Device and Surface Access Pass.
-
-                The Chaos Insurgency Device has the same exact permissions as a Captain Keycard but has the added function of being able to play Snake by inspecting the device.
-
-                The Surface Access Pass is a unique item that can only be used to open Gate-A and Gate-B but not close them. The item is discarded once used to open a gate.
-
-                Unlike Keycards, throwing either devices at a Keycard Reader will not activate it.
+            <p style={{position: 'absolute', fontSize: '6px', bottom: '-30px'}}>{bottom_text}
             </p>
         </div>
     );
