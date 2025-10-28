@@ -5,6 +5,17 @@ body {
     /*background-image: linear-gradient(to bottom, #020917, #101725);*/
 }
 
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+}
+
 .content {
     margin: 0 auto;
     display: flex;
@@ -66,7 +77,7 @@ form div label {
     width: calc(6 * 85.6px);
     height: calc(6 * 53.98px);
     overflow: clip;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 10px;
     position: relative;
 }

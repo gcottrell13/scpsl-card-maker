@@ -8,7 +8,7 @@ if (rootEl) {
   root.render(
     <React.StrictMode>
       <App />
-        <a className="build-number" href={BUILD_LINK} target={'_blank'}>
+        <a className="build-number no-print" href={BUILD_LINK} target={'_blank'}>
             Build #{BUILD_NUM}
         </a>
     </React.StrictMode>,

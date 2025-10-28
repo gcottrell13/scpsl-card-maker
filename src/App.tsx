@@ -27,15 +27,16 @@ const App = () => {
     const [bottom_text, set_bottom_text] = useState(default_bottom_text);
 
     return (
-        <div className="content" style={{
-            '--detail-color': detail_color,
-            '--card-color': card_color,
-            '--text-color': text_color,
-            '--background-color': background_color,
-            '--wavy-color': '#cfcfcf',
-        } as React.CSSProperties}>
-            <div className={'card'} style={{backgroundColor: 'var(--background-color)'}}>
-                <CardWavyBg />
+        <div className="content">
+            <div className={'card'} style={{
+                backgroundColor: 'var(--background-color)',
+                '--detail-color': detail_color,
+                '--card-color': card_color,
+                '--text-color': text_color,
+                '--background-color': background_color,
+                '--wavy-color': '#cfcfcf',
+            } as React.CSSProperties}>
+                <CardWavyBg/>
                 <CardSiteAccessBG num_lines={7} font_size={11} text={card_title}/>
                 <div style={{
                     display: 'flex',
@@ -53,7 +54,7 @@ const App = () => {
                 <CardHolder name={card_holder} bottom_text={bottom_text}/>
             </div>
             <hr/>
-            <form style={{display: 'flex', flexDirection: 'column', gap: '5px', alignItems: 'start'}}>
+            <form className={'no-print'} style={{display: 'flex', flexDirection: 'column', gap: '5px', alignItems: 'start'}}>
                 <InputText value={card_title} onChange={set_card_title} name={'card title'}/>
                 <InputText value={card_holder} onChange={set_card_holder} name={'card holder'}/>
 
@@ -139,13 +140,19 @@ function SelectColor({value, name, onChange}: { value: string, name: string, onC
     );
 }
 
-function InputText({value, name, onChange, multiline = false}: { value: string, name: string, onChange: (s: string) => void, multiline?: boolean }) {
+function InputText({value, name, onChange, multiline = false}: {
+    value: string,
+    name: string,
+    onChange: (s: string) => void,
+    multiline?: boolean
+}) {
     return (
         <div>
             {
                 multiline ?
                     (<textarea id={`${name}-text`} onChange={(i) => onChange(i.target.value)} value={value}/>) :
-                    (<input id={`${name}-text`} type={'text'} onChange={(i) => onChange(i.target.value)} value={value}/>)
+                    (<input id={`${name}-text`} type={'text'} onChange={(i) => onChange(i.target.value)}
+                            value={value}/>)
             }
             <label htmlFor={`#${name}-text`}>{name}</label>
         </div>
@@ -193,8 +200,10 @@ function CardSiteAccessBG(
             fontWeight: 'bold',
             height: '77px',
         }}>
-            <svg style={{position: 'absolute', width: '100%',
-                height: `${font_size * num_lines}px`,}}>
+            <svg style={{
+                position: 'absolute', width: '100%',
+                height: `${font_size * num_lines}px`,
+            }}>
                 <defs>
                     <linearGradient id='mygradient'>
                         <stop offset='5%' stopColor={'var(--detail-color)'}/>
@@ -209,8 +218,9 @@ function CardSiteAccessBG(
                 maskImage: bg,
                 width: '100%',
                 height: `${font_size * num_lines}px`,
-            }} />
-            <svg style={{position: 'absolute', bottom: 0, width: '100%', height: '100%'}} preserveAspectRatio="xMinYMax">
+            }}/>
+            <svg style={{position: 'absolute', bottom: 0, width: '100%', height: '100%'}}
+                 preserveAspectRatio="xMinYMax">
                 <text ref={textRef} fill={'var(--text-color)'}>{text}</text>
             </svg>
         </div>
@@ -254,7 +264,7 @@ function CardWavyBg() {
     );
 }
 
-function CardHolder({name, bottom_text}: {name: string, bottom_text: string}) {
+function CardHolder({name, bottom_text}: { name: string, bottom_text: string }) {
     return (
         <div style={{
             transform: 'rotate(-90deg)',
@@ -267,7 +277,10 @@ function CardHolder({name, bottom_text}: {name: string, bottom_text: string}) {
             textAlign: 'start',
             height: '200px',
         }}>
-            <span style={{color: 'color-mix(in oklab, var(--text-color) 30%, white)', fontSize: '0.8rem'}}>CARD HOLDER:</span>
+            <span style={{
+                color: 'color-mix(in oklab, var(--text-color) 30%, white)',
+                fontSize: '0.8rem'
+            }}>CARD HOLDER:</span>
             <br/>
             <span style={{marginLeft: '5px', fontSize: '1.5rem'}}>{name}</span>
             <p style={{position: 'absolute', fontSize: '6px', bottom: '-30px'}}>{bottom_text}
